@@ -3,6 +3,7 @@
  */
 
 var path = require('path');
+var fs = require('fs')
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var merge = require('webpack-merge');
@@ -32,7 +33,9 @@ module.exports = merge(webpackBaseConfig, {
     },
     plugins: [
 
-
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"development"'
+        }),
         new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
         new webpack.LoaderOptionsPlugin({
             // test: /\.xxx$/, // may apply this only for some modules
@@ -51,4 +54,10 @@ module.exports = merge(webpackBaseConfig, {
         }),
         new FriendlyErrorsPlugin()
     ]
+});
+
+
+fs.open('./src/config/env.js', 'w', function (err, fd) {
+    var buf = 'export default "development";';
+    fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
 });
