@@ -37,11 +37,11 @@
 //                var td = t.to.depth || 0;
 //
 //                if (!t.from.path || fd === td) {
-//                    this.$root.$data.direction = 'flip';
+//                    this.$root.$vuex.direction = 'flip';
 //                } else if (fd < td) {
-//                    this.$root.$data.direction = 'forward';
+//                    this.$root.$vuex.direction = 'forward';
 //                } else if (fd > td) {
-//                    this.$root.$data.direction = 'back';
+//                    this.$root.$vuex.direction = 'back';
 //                }
 //
 //                this.$nextTick(() => t.next());

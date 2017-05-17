@@ -7,18 +7,19 @@ import App from './components/app.vue';
 import Routers from './router';
 import Env from './config/env';
 import Config from './config/config'
-
-
+import Axios from 'axios'
 
 import Request from './utils/request'
 
 Vue.use(VueRouter);
+
 
 // 开启debug模式
 Vue.config.debug = true;
 
 Vue.prototype.$Config = Config;
 Vue.prototype.$Request = Request;
+Vue.prototype.$http = Axios;
 
 // 路由配置
 let router = new VueRouter({
