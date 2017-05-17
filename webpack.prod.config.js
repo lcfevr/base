@@ -59,7 +59,7 @@ module.exports = merge(webpackBaseConfig, {
         }),
         new HtmlWebpackPlugin({                                                                        // 构建html文件
             filename: './index_prod.html',
-            template: './src/template/index.ejs',
+            template: './example/index.html',
             inject: false
         })
     ]
