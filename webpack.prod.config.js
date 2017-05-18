@@ -28,16 +28,6 @@ module.exports = merge(webpackBaseConfig, {
             'process.env.NODE_ENV': '"production"'
         }),
 
-        // new webpack.LoaderOptionsPlugin({
-        //     // test: /\.xxx$/, // may apply this only for some modules
-        //     options: {
-        //         babel: {
-        //             presets: ['es2015'],
-        //             plugins: ['transform-runtime']
-        //         }
-        //     }
-        // }),
-
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false

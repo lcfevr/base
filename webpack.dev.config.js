@@ -36,15 +36,6 @@ module.exports = merge(webpackBaseConfig, {
             'process.env.NODE_ENV': '"development"'
         }),
 
-        // new webpack.LoaderOptionsPlugin({
-        //     // test: /\.xxx$/, // may apply this only for some modules
-        //     options: {
-        //         babel:{
-        //             presets: ['es2015'],
-        //             plugins: ['transform-runtime']
-        //         }
-        //     }
-        // }),
         new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
         new HtmlWebpackPlugin({
