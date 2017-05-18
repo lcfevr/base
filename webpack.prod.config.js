@@ -13,45 +13,31 @@ process.env.NODE_ENV = 'production';
 
 module.exports = merge(webpackBaseConfig, {
     entry: {
-        main: './src/main.js'
+        main: './src/main',
+        vendors: ['vue', 'vue-router']
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        publicPath: './dist/',
+        publicPath: '/dist/',
         filename: '[name].[hash].js',
         chunkFilename: '[name].[hash].chunk.js',
     },
-    externals: {
-        vue: {
-            root: 'Vue',
-            commonjs: 'vue',
-            commonjs2: 'vue',
-            amd: 'vue'
-        }
-    },
+
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"'
         }),
-        new webpack.LoaderOptionsPlugin({
-            // test: /\.xxx$/, // may apply this only for some modules
-            options: {
-                babel: {
-                    presets: ['es2015'],
-                    plugins: ['transform-runtime']
-                }
-            }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendor.bundle.[hash].js'}),
-        new webpack.LoaderOptionsPlugin({
-            // test: /\.xxx$/, // may apply this only for some modules
-            options: {
-                babel: {
-                    presets: ['es2015'],
-                    plugins: ['transform-runtime']
-                }
-            }
-        }),
+
+        // new webpack.LoaderOptionsPlugin({
+        //     // test: /\.xxx$/, // may apply this only for some modules
+        //     options: {
+        //         babel: {
+        //             presets: ['es2015'],
+        //             plugins: ['transform-runtime']
+        //         }
+        //     }
+        // }),
+
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
@@ -59,9 +45,11 @@ module.exports = merge(webpackBaseConfig, {
         }),
         new HtmlWebpackPlugin({                                                                        // 构建html文件
             filename: './index_prod.html',
-            template: './example/index.html',
+            template: path.join(__dirname, 'src/template/index.ejs'),
             inject: false
-        })
+        }),
+        new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendor.bundle.[hash].js'}),
+        new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
     ]
 });
 

@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+    }
+  },
+  "rules": {
+    "semi": 0,
+    "indent": ["error", 4, {"SwitchCase":1}],
+    "no-console": "off",
+    "no-debugger": "off"
+  },
+  "extends": "eslint:recommended",
+  "globals":{
+    }
+}

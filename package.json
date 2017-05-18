@@ -7,7 +7,7 @@
     "init": "webpack --progress --config webpack.dev.config.js",
     "dev": "webpack-dev-server  --inline --hot --compress --history-api-fallback --port 8081 --config webpack.dev.config.js",
     "style-build": "gulp --gulpfile build-style.js",
-    "build": "webpack --progress --hide-modules --config webpack.prod.config.js && npm run style-build"
+    "build": "webpack --progress --hide-modules --config webpack.prod.config.js"
   },
   "repository": {
     "type": "git",

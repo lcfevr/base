@@ -14,4 +14,5 @@ let config = {
     isWechat: /MicroMessenger/i.test(window.navigator.userAgent),
     isUCBrowser: /UCWEB|UCBrowser/i.test(window.navigator.userAgent)
 };
+
 export default config;

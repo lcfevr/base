@@ -27,7 +27,6 @@ module.exports = merge(webpackBaseConfig, {
     },
     resolve: {
         alias: {
-            vlc: './src/index',
             vue: 'vue/dist/vue.js'
         }
     },
@@ -36,19 +35,20 @@ module.exports = merge(webpackBaseConfig, {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"development"'
         }),
+
+        // new webpack.LoaderOptionsPlugin({
+        //     // test: /\.xxx$/, // may apply this only for some modules
+        //     options: {
+        //         babel:{
+        //             presets: ['es2015'],
+        //             plugins: ['transform-runtime']
+        //         }
+        //     }
+        // }),
         new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
-        new webpack.LoaderOptionsPlugin({
-            // test: /\.xxx$/, // may apply this only for some modules
-            options: {
-                babel:{
-                    presets: ['es2015'],
-                    plugins: ['transform-runtime']
-                }
-            }
-        }),
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
         new HtmlWebpackPlugin({
-            inject: true,
+            inject: false,
             filename: '../example/index.html',
             template: './src/template/index.ejs'
         }),
