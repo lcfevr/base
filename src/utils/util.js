@@ -43,8 +43,8 @@ export function setPageTitle(title) {
     document.title = title;
 
     if (Config.isIphone && Config.isWechat) {
-        var body = document.getElementsByTagName('body')[0];
-        var iframe = document.createElement('iframe');
+        let body = document.getElementsByTagName('body')[0];
+        let iframe = document.createElement('iframe');
         iframe.setAttribute('src', '/favicon.ico');
 
         iframe.addEventListener('load', function () {
