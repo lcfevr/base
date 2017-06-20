@@ -21,6 +21,8 @@ Vue.prototype.$Config = Config;
 Vue.prototype.$Request = Request;
 Vue.prototype.$http = Axios;
 
+window.globalConfigs = globalConfigs;
+
 // 路由配置
 let router = new VueRouter({
 

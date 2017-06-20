@@ -26,7 +26,8 @@ module.exports = merge(webpackBaseConfig, {
 
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"'
+            'process.env.NODE_ENV': '"production"',
+            'globalConfigs':config
         }),
 
         new webpack.optimize.UglifyJsPlugin({
@@ -44,10 +45,5 @@ module.exports = merge(webpackBaseConfig, {
     ]
 });
 
-// 写入环境变量
-fs.open('./src/config/env.js', 'w', function (err, fd) {
 
-  var buf = `var globalConfigs = ${JSON.stringify(merge({'Env':process.env.NODE_ENV},config), null, 4)};window.globalConfigs = globalConfigs;export default globalConfigs`;
-  fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
-});
 
