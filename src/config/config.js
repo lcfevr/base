@@ -4,11 +4,11 @@
 import Env from './env';
 
 let config = {
-    env: Env,
+    env: Env.Env,
     PROJECT:'VLC',
     VERSION:'1.0',
     doc_title:'',
-    baseUrl:'',
+    baseUrl:Env.GLOBAL.baseUrl,
     isIPad: /ipad/i.test(window.navigator.userAgent),
     isIphone: /iphone|ipad|ipod/i.test(window.navigator.userAgent),
     isWechat: /MicroMessenger/i.test(window.navigator.userAgent),

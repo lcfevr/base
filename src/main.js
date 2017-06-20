@@ -24,7 +24,7 @@ Vue.prototype.$http = Axios;
 // 路由配置
 let router = new VueRouter({
 
-    history: Env != 'production',
+    history: Env.Env != 'production',
     routes:Routers
 });
 

@@ -5,12 +5,13 @@
 var path = require('path');
 var fs = require('fs')
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var merge = require('webpack-merge');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpackBaseConfig = require('./webpack.base.config.js');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-
+var config =require('./index.js');
+process.env.NODE_ENV = 'development';
 
 module.exports = merge(webpackBaseConfig, {
     // 入口
@@ -32,9 +33,9 @@ module.exports = merge(webpackBaseConfig, {
     },
     plugins: [
 
-        new webpack.DefinePlugin({
+        new webpack.DefinePlugin(merge({
             'process.env.NODE_ENV': '"development"'
-        }),
+        })),
 
         new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
@@ -49,6 +50,7 @@ module.exports = merge(webpackBaseConfig, {
 
 
 fs.open('./src/config/env.js', 'w', function (err, fd) {
-    var buf = 'export default "development";';
-    fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
+
+  var buf = `export default ${JSON.stringify(merge({'Env':process.env.NODE_ENV},config), null, 4)}`;
+  fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
 });

@@ -8,6 +8,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpackBaseConfig = require('./webpack.base.config.js');
 var fs = require('fs');
+var config =require('./index.js');
 
 process.env.NODE_ENV = 'production';
 
@@ -45,8 +46,8 @@ module.exports = merge(webpackBaseConfig, {
 
 // 写入环境变量
 fs.open('./src/config/env.js', 'w', function (err, fd) {
-    var buf = 'export default "production";';
-    fs.write(fd, buf, 0, buf.length, 0, function (err, written, buffer) {
-    });
+
+  var buf = `var globalConfigs = ${JSON.stringify(merge({'Env':process.env.NODE_ENV},config), null, 4)};window.globalConfigs = globalConfigs;export default globalConfigs`;
+  fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
 });
 
