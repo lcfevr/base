@@ -10,12 +10,52 @@ var webpackBaseConfig = require('./webpack.base.config.js');
 var fs = require('fs');
 var config =require('./index.js');
 
+var GenerateAssetPlugin = require('generate-asset-webpack-plugin');
+
+
+
 process.env.NODE_ENV = 'production';
+
+
+function createHtml(compilation){
+  // console.log(compilation.chunks)
+  // return `window.globalConfigs = {
+  //
+  //     'GLOBAL': {
+  //     'baseUrl':  '"{!API_URL}"', // 运行时自动替换变量
+  //   },
+  //
+  // };`
+
+  var chunk = compilation.chunks[0];
+  var jsFile = chunk.files;
+  console.log(chunk)
+  return `
+    
+      <!DOCTYPE html>
+      <html lang="zh-CN">
+        <head>
+            <title>App 2.0</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+        </head>
+        <body>
+            <div id="app"></div>
+            <script type="text/javascript" src="./config.js?${compilation.hash}"></script>
+            <script type="text/javascript" src="./vendor.bundle.${compilation.hash}.js"></script><script type="text/javascript" src="./main.${compilation.hash}.js"></script></body>
+        </body>
+      </html>
+
+  
+  `
+
+}
+
 
 module.exports = merge(webpackBaseConfig, {
     entry: {
         main: './src/main',
-        vendors: ['vue', 'vue-router']
+        vendors: ['vue', 'vue-router'],
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -38,12 +78,31 @@ module.exports = merge(webpackBaseConfig, {
         new HtmlWebpackPlugin({                                                                        // 构建html文件
             filename: './index_prod.html',
             template: path.join(__dirname, 'src/template/index.ejs'),
-            inject: false
+            inject: false,
+            hash: true
         }),
         new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendor.bundle.[hash].js'}),
+
         new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
+
+        new GenerateAssetPlugin({
+            filename: './index.html',
+            fn: (compilation, cb) => {
+                cb(null, createHtml(compilation));
+            },
+
+        })
     ]
 });
 
 
+fs.open('./dist/config.js', 'w', function (err, fd) {
+  var buf = `window.globalConfigs = {
 
+      'GLOBAL': {
+      'baseUrl':  '"{!API_URL}"', // 运行时自动替换变量
+    },
+
+  };`;
+  fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
+});

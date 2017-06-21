@@ -7,7 +7,7 @@ let config = {
     PROJECT:'VLC',
     VERSION:'1.0',
     doc_title:'',
-    baseUrl:globalConfigs.GLOBAL.baseUrl,
+    baseUrl:process.env.NODE_ENV == 'dev' ? globalConfigs.GLOBAL.baseUrl : window.globalConfigs.GLOBAL.baseUrl,
     isIPad: /ipad/i.test(window.navigator.userAgent),
     isIphone: /iphone|ipad|ipod/i.test(window.navigator.userAgent),
     isWechat: /MicroMessenger/i.test(window.navigator.userAgent),
