@@ -5,7 +5,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './components/app.vue';
 import Routers from './router';
-import Env from './config/env';
+
 import Config from './config/config'
 import Axios from 'axios'
 
@@ -22,11 +22,12 @@ Vue.prototype.$Request = Request;
 Vue.prototype.$http = Axios;
 
 window.globalConfigs = globalConfigs;
-
+console.log(globalConfigs)
+console.log(Config)
 // 路由配置
 let router = new VueRouter({
 
-    history: Env.Env != 'production',
+    history: process.env.NODE_ENV != 'production',
     routes:Routers
 });
 

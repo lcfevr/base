@@ -5,10 +5,10 @@
   "main": "main.js",
   "scripts": {
     "init": "webpack --progress --config webpack.dev.config.js",
-    "dev": "webpack-dev-server  --inline --hot --compress --history-api-fallback --port 8081 --config webpack.dev.config.js",
+    "dev": "webpack-dev-server  --inline --hot --compress --history-api-fallback  --config webpack.dev.config.js",
     "style-build": "gulp --gulpfile build-style.js",
     "zip": "node zip.js",
-    "config":"node after-server.js",
+    "config": "node after-server.js",
     "build": "webpack -p --progress --hide-modules --config  webpack.prod.config.js  &&  npm run zip"
   },
   "repository": {
