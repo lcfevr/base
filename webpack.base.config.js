@@ -65,5 +65,5 @@ module.exports = {
             'vue': 'vue/dist/vue.esm.js',
             '@': resolve('src')
         }
-    }
+    },
 };
