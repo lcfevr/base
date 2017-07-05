@@ -15,6 +15,7 @@ Vue.use(VueRouter);
 
 
 // 开启debug模式
+
 Vue.config.debug = true;
 
 Vue.prototype.$Config = Config;

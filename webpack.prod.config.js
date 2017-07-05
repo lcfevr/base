@@ -8,88 +8,57 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpackBaseConfig = require('./webpack.base.config.js');
 var fs = require('fs');
-var config =require('./index.js');
-
-var GenerateAssetPlugin = require('generate-asset-webpack-plugin');
 
 
 
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = '"production"';
 
-
-function createHtml(compilation){
-  return `
-    
-  <!DOCTYPE html>
-  <html lang="zh-CN">
-    <head>
-        <title>App 2.0</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-    </head>
-    <body>
-        <div id="app"></div>
-        <script type="text/javascript" src="./config.js?${compilation.hash}"></script>
-        <script type="text/javascript" src="./vendor.bundle.${compilation.hash}.js"></script><script type="text/javascript" src="./main.${compilation.hash}.js"></script></body>
-
-  </html>
-
-  `
-
-
-}
 
 
 module.exports = merge(webpackBaseConfig, {
-    entry: {
-        main: './src/main',
-        vendors: ['vue', 'vue-router'],
-    },
-    output: {
-        path: path.resolve(__dirname, './dist'),
-        publicPath: './',
-        filename: '[name].[hash].js',
+  entry: {
+    main: './src/main',
+    vendors: ['vue', 'vue-router'],
+  },
+  output: {
+    path: path.join(__dirname, './dist'),
+    publicPath: '',
+    filename: 'js/[name].[hash].js',
+    chunkFilename: 'chunk/[name].[hash].chunk.js',
+  },
 
-        chunkFilename: '[name].[hash].chunk.js',
-    },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': process.env.NODE_ENV,
+    }),
 
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"',
-            'globalConfigs':config
-        }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new HtmlWebpackPlugin({                                                                        // 构建html文件
+        filename: './index.html',
+        template: path.join(__dirname, 'src/template/index.ejs'),
+        inject: false,
+        hash: false
+    }),
+    new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'js/vendor.bundle.[hash].js'}),
 
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        // new HtmlWebpackPlugin({                                                                        // 构建html文件
-        //     filename: './index_prod.html',
-        //     template: path.join(__dirname, 'src/template/index.ejs'),
-        //     inject: false,
-        //     hash: true
-        // }),
-        new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendor.bundle.[hash].js'}),
+    new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true}),
 
-        new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
-
-        new GenerateAssetPlugin({
-            filename: './index.html',
-            fn: (compilation, cb) => {
-                cb(null, createHtml(compilation));
-            },
-
-        })
-    ]
+    function () {
+      this.plugin("done", function (stats) {
+          fs.open('./dist/js/config.'+stats.hash+'.js', 'w', function (err, fd) {
+            var buf = `window.globalConfigs = ${JSON.stringify(resolve(require('./index.js')), null, 4)}`;
+              fs.writeSync(fd, buf, 0, buf.length, 0);
+            after('./dist',stats.compilation.assets,stats.hash)
+          });
+      })
+    }
+  ]
 });
 
-
-
-fs.open('./dist/config.js', 'w', function (err, fd) {
-  var buf = `window.globalConfigs = ${JSON.stringify(resolve(config),null,4)}`;
-  fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
-});
 
 function resolve(obj) {
   for (var i in obj) {
@@ -127,4 +96,25 @@ function trim() {
     default:
       return args;
   }
+}
+
+
+function after(root,files,hash) {
+
+    Object.keys(files)
+      .forEach(function (file) {
+        file = path.resolve(root, file);
+
+          var content = fs.readFileSync(file, 'utf8');
+
+          if (/index\.html/i.test(file)) {
+            content = content
+              .replace(/(js\/config\.js)/, 'js/config.'+hash+'.js');
+          }
+
+
+
+          fs.writeFileSync(file, content);
+
+      });
 }

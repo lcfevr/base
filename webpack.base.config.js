@@ -53,7 +53,19 @@ module.exports = {
                     'sass-loader?sourceMap'
                 ]
             },
-            { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=8192'},
+            {
+                test: /\.(woff|svg|eot|ttf)\??.*$/,
+                use: [
+                    {
+                        loader:'file-loader',
+                        query: {
+                            limit: 8192,
+                            name: 'font/[name].[hash].[ext]'
+                        }
+                    }
+                ]
+            },
+            { test: /\.(gif|jpg|png)\??.*$/, use: [{loader:'url-loader',query:{limit:8192,name:'img/[name].[hash].[ext]'}}]},
             { test: /\.(html|tpl)$/, loader: 'html-loader' },
 
         ]
@@ -62,6 +74,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.vue'],
         alias: {
+            './asset':path.join(__dirname, 'src', 'asset'),
             'vue': 'vue/dist/vue.esm.js',
             '@': resolve('src')
         }
