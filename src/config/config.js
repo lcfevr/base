@@ -6,7 +6,7 @@
 
 let config = {
     env: process.env.NODE_ENV,
-    PROJECT:'VLC',
+    PROJECT:'',
     VERSION:'1.0',
     doc_title:'',
     baseUrl:process.env.NODE_ENV == 'development' ? globalConfigs.GLOBAL.baseUrl : window.globalConfigs.GLOBAL.baseUrl,

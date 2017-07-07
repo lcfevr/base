@@ -31,21 +31,6 @@
         },
         mounted () {
 
-//            this.$router.beforeEach(t => {
-//
-//                var fd = t.from.depth || 0;
-//                var td = t.to.depth || 0;
-//
-//                if (!t.from.path || fd === td) {
-//                    this.$root.$vuex.direction = 'flip';
-//                } else if (fd < td) {
-//                    this.$root.$vuex.direction = 'forward';
-//                } else if (fd > td) {
-//                    this.$root.$vuex.direction = 'back';
-//                }
-//
-//                this.$nextTick(() => t.next());
-//            });
 
         },
         beforeDestroy () {
@@ -54,19 +39,6 @@
         methods: {
 
         },
-//        transitions:{
-//            'forward':{
-//                enterClass:'fadeInLeft',
-//                leaveClass:'fadeOutRight'
-//            },
-//            'back':{
-//                enterClass:'fadeInRight',
-//                leaveClass:'fadeOutLeft'
-//            },
-//            'flip':{
-//                enterClass:'fadeIn',
-//                leaveClass:'fadeOut'
-//            }
-//        }
+
     }
 </script>

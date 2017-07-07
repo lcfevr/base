@@ -1,6 +1,9 @@
 /**
  * 公共配置
  */
+
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 var path = require('path');
 function resolve (dir) {
     return path.join(__dirname, '..', dir)
@@ -17,11 +20,14 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        css: 'vue-style-loader!css-loader',
-                        less: 'vue-style-loader!css-loader!less-loader'
+                        css: ExtractTextPlugin.extract({use:'css-loader',fallback:'vue-style-loader'}),
+                        less: ExtractTextPlugin.extract({use:'css-loader!less-loader',fallback:'vue-style-loader'})
                     },
                     postLoaders: {
                         html: 'babel-loader'
+                    },
+                    options: {
+                        extractCSS: true
                     }
                 }
             },
@@ -31,27 +37,33 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'autoprefixer-loader'
-                ]
+                use:ExtractTextPlugin.extract({
+                    fallback:'style-loader',
+                    use:[
+                        'css-loader',
+                        'autoprefixer-loader'
+                    ]
+                })
             },
             {
                 test: /\.less$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'less-loader'
-                ]
+                use:ExtractTextPlugin.extract({
+                    fallback:'style-loader',
+                    use:[
+                        'css-loader',
+                        'less-loader'
+                    ]
+                })
             },
             {
                 test: /\.scss$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader?sourceMap'
-                ]
+                use:ExtractTextPlugin.extract({
+                    fallback:'style-loader',
+                    use:[
+                        'css-loader',
+                        'sass-loader'
+                    ]
+                })
             },
             {
                 test: /\.(woff|svg|eot|ttf)\??.*$/,

@@ -45,7 +45,7 @@ module.exports = merge(webpackBaseConfig, {
     }),
     new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'js/vendor.bundle.[hash].js'}),
 
-    new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true}),
+    new ExtractTextPlugin({filename: 'css/[name].css',  allChunks: true}),
 
     function () {
       this.plugin("done", function (stats) {
@@ -85,8 +85,6 @@ function trim() {
     }
   });
 
-  console.log(args)
-
 
   switch (args.length) {
     case 0:
@@ -110,11 +108,9 @@ function after(root,files,hash) {
           if (/index\.html/i.test(file)) {
             content = content
               .replace(/(js\/config\.js)/, 'js/config.'+hash+'.js');
+
+            fs.writeFileSync(file, content);
           }
-
-
-
-          fs.writeFileSync(file, content);
 
       });
 }

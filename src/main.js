@@ -9,7 +9,7 @@ import Routers from './router';
 import Config from './config/config'
 import Axios from 'axios'
 
-import Request from './utils/request'
+
 
 Vue.use(VueRouter);
 
@@ -19,7 +19,6 @@ Vue.use(VueRouter);
 Vue.config.debug = true;
 
 Vue.prototype.$Config = Config;
-Vue.prototype.$Request = Request;
 Vue.prototype.$http = Axios;
 
 

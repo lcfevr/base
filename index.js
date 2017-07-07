@@ -4,7 +4,7 @@
 
 var globalConfigs = {
   'GLOBAL': {
-    'baseUrl': process.env.NODE_ENV !== '"production"' ? '"http://admin.dev.tnf.ibrand.cc/"' : '"{!API_URL}"', // 运行时自动替换变量
+    'baseUrl': process.env.NODE_ENV !== '"production"' ? '"http://example.com"' : '"{!API_URL}"', // 运行时自动替换变量
   },
 };
 

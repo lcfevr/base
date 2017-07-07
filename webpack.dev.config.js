@@ -36,8 +36,7 @@ module.exports = merge(webpackBaseConfig, {
             'process.env.NODE_ENV': process.env.NODE_ENV,
             'globalConfigs':require('./index.js')
         }),
-
-        new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
+        new ExtractTextPlugin({ filename: 'css/[name].css', allChunks: true }),
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'js/vendor.bundle.js' }),
         new HtmlWebpackPlugin({
             inject: false,
