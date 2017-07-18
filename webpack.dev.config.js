@@ -1,5 +1,5 @@
 /**
- * 本地预览
+ * 开发环境
  */
 
 var path = require('path');

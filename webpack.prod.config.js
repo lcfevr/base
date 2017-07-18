@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2017/5/16.
+ * 生产环境
  */
 var path = require('path');
 var webpack = require('webpack');

@@ -5,9 +5,7 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var path = require('path');
-function resolve (dir) {
-    return path.join(__dirname, '..', dir)
-}
+
 
 module.exports = {
     // 加载器
@@ -70,10 +68,7 @@ module.exports = {
                 use: [
                     {
                         loader:'file-loader',
-                        query: {
-                            limit: 8192,
-                            name: 'font/[name].[hash].[ext]'
-                        }
+                        query: {limit: 8192,name: 'font/[name].[hash].[ext]'}
                     }
                 ]
             },
@@ -88,7 +83,6 @@ module.exports = {
         alias: {
             './asset':path.join(__dirname, 'src', 'asset'),
             'vue': 'vue/dist/vue.esm.js',
-            '@': resolve('src')
         }
     },
 };
