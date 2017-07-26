@@ -100,9 +100,13 @@ npm run dev
 ```
 
 4.生产环境打包
+> 可通过给命令行添加project参数来启动project目录下的相对应的项目，project参数值默认为'base'
 
 ```
 npm run build
+
+
+npm run build -- --project base  //启动base项目
 ```
 
 ### 说明
@@ -116,4 +120,6 @@ npm run build
 4.prod环境下打包完成会生成一个全局的config.js文件，该文件下存储了window.globalConfigs全局变量，方便docker容器配置
 
 5.gitignore已默认将dist 跟 example 目录下的文件忽略
+
+6.通过配置project下的项目结构，可灵活启动项目，视图与业务分离，开发者可抽取业务公用代码，通过extends来灵活配置各个相似场景下的业务代码
 
