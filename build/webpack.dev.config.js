@@ -11,16 +11,15 @@ var webpackBaseConfig = require('./webpack.base.config.js');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
+
 process.env.NODE_ENV = '"development"';
 module.exports = merge(webpackBaseConfig, {
-    // 入口
     entry: {
         main: './src/main',
         vendors: ['vue', 'vue-router']
     },
-    // 输出
     output: {
-        path:path.join(__dirname, 'example'),
+        path:path.join(__dirname, '../example'),
         publicPath: '',
         filename: 'js/[name].js',
         chunkFilename: 'chunk/[name].chunk.js'
@@ -34,7 +33,8 @@ module.exports = merge(webpackBaseConfig, {
 
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': process.env.NODE_ENV,
-            'globalConfigs':require('./index.js')
+            'process.env.PROJECT' : require('./config').PROJECT,
+            'globalConfigs':require('./config')
         }),
         new ExtractTextPlugin({ filename: 'css/[name].css', allChunks: true }),
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'js/vendor.bundle.js' }),
@@ -44,6 +44,7 @@ module.exports = merge(webpackBaseConfig, {
             template: './src/template/index.ejs'
         }),
         new FriendlyErrorsPlugin()
+
     ]
 });
 

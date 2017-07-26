@@ -11,7 +11,7 @@ const routers = [
     {
         path:'/guide',
         name:'guide',
-        component:resolve => require(['./views/index.vue'], resolve),
+        component:resolve => require(['./index.vue'], resolve),
         meta:{
             title:'导航'
         }

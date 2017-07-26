@@ -8,12 +8,9 @@ var path = require('path');
 
 
 module.exports = {
-    // 加载器
     module: {
-        // https://doc.webpack-china.org/guides/migrating/#module-loaders-module-rules
         rules: [
             {
-                // https://vue-loader.vuejs.org/en/configurations/extract-css.html
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: {
@@ -81,7 +78,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.vue'],
         alias: {
-            './asset':path.join(__dirname, 'src', 'asset'),
+            'asset':path.join(__dirname, 'src', 'asset'),
             'vue': 'vue/dist/vue.esm.js',
         }
     },

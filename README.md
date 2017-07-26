@@ -11,24 +11,33 @@
 │  .eslintrc           # eslint配置项
 │  .eslintignore       # eslint忽略项
 │
-├─ webpack.base.config.js         # webpack 参数配置
-├─ webpack.dev.config.js          # webpack 开发环境配置
-├─ webpack.prod.config.js         # webpack 生产环境配置
-├─ zip.js                         # 生产环境下文件打包为zip格式
-├─ index.js                       # 全局配置(便于docker容器配置)，开发环境下访问globalConfigs，生产环境下访问window.globalConfigs
 │
 │
 ├─node_modules
 │
 ├─dist                 # 打包后生成的文件目录
-│
+├─build                # 打包后生成的文件目录
+    │
+│   ├─ webpack.base.config.js         # webpack 参数配置
+│   │
+│   ├─ webpack.dev.config.js          # webpack 开发环境配置
+│   │
+│   ├─ webpack.prod.config.js         # webpack 生产环境配置
+│   │
+│   ├─ zip.js                         # 生产环境下文件打包为zip格式
 │
 ├─example                 # 初始化后生成的开发环境运行所需文件
 │
 └─src
     ├─ main.js         # 入口文件
     │
-    ├─ router.js       # 路由配置
+    ├─ router.js       # 路由配置 ├─ index.js                       # 全局配置(便于docker容器配置)，开发环境下访问globalConfigs，生产环境下访问window.globalConfigs
+    │
+    ├─ project         # 项目文件夹
+    │       │
+    │       ├─ page    # 各项目下的page目录
+    │       │
+    │       ├─ index.js # 项目参数配置（启动对应项目会加载对应的index.js）
     │
     ├─components       # 组件
     │       │
@@ -102,7 +111,7 @@ npm run build
 
 2.已处理 *.vue 文件内的 <style> 提取，若需要按需加载，请移除webpack.base.config.js下的ExtractTextPlugin配置，且移除dev && prod 中 ExtractTextPlugin 相关plugin配置
 
-3.process.env.NODE_ENV 变量在dev 跟 prod环境下的值 分别问development 跟 production，可根据需要自行配置
+3.process.env.NODE_ENV 变量在dev 跟 prod环境下的值 分别为 'development' 跟 'production'，可根据需要自行配置
 
 4.prod环境下打包完成会生成一个全局的config.js文件，该文件下存储了window.globalConfigs全局变量，方便docker容器配置
 
