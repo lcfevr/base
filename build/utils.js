@@ -44,6 +44,7 @@ exports.after = function(root,files,hash) {
 
   Object.keys(files)
     .forEach(function (file) {
+      console.log(file)
       file = path.resolve(root, file);
 
       var content = fs.readFileSync(file, 'utf8');

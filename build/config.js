@@ -6,7 +6,7 @@
 var argv = require('yargs').argv;
 var fs = require('fs');
 var path = require('path');
-var project = argv.project || 'base';
+var project = argv.project || 'bases';
 var packages = require('../package.json');
 var resolve = path.resolve(__dirname,'../src/project',project);
 var config = require(resolve);
@@ -26,7 +26,7 @@ if (argv.brand) {
 }
 
 
-var global = require('../src/project/base');
+var global = require('../src/project/bases');
 
 if (fs.existsSync(global)){
   Object.keys(global.BRAND).forEach(function(key){

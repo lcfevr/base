@@ -7,7 +7,7 @@ var globalConfigs = {
     baseUrl: process.env.NODE_ENV !== '"production"' ? '"http://example.com"' : '"{!API_URL}"', // 运行时自动替换变量
   },
   BRAND: {
-    name:'"base"',
+    name:'"bases"',
     logo:'""',
     title:'""',
     cache:'""'

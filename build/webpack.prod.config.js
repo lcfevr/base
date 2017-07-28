@@ -48,7 +48,7 @@ module.exports = merge(webpackBaseConfig, {
     }),
     new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'js/vendor.bundle.[hash].js'}),
 
-    new ExtractTextPlugin({filename: 'css/[name].css',  allChunks: true}),
+    // new ExtractTextPlugin({filename: 'css/[name].css',  allChunks: true}),
 
     function () {
       this.plugin("done", function (stats) {

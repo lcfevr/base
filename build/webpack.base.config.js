@@ -15,15 +15,15 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        css: ExtractTextPlugin.extract({use:'css-loader',fallback:'vue-style-loader'}),
-                        less: ExtractTextPlugin.extract({use:'css-loader!less-loader',fallback:'vue-style-loader'})
+                        css: 'vue-style-loader!css-loader',
+                        less: 'vue-style-loader!css-loader!less-loader'
                     },
                     postLoaders: {
                         html: 'babel-loader'
                     },
-                    options: {
-                        extractCSS: true
-                    }
+                    // options: {
+                    //     extractCSS: false
+                    // }
                 }
             },
             {
@@ -32,33 +32,32 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use:ExtractTextPlugin.extract({
-                    fallback:'style-loader',
-                    use:[
-                        'css-loader',
-                        'autoprefixer-loader'
-                    ]
-                })
+                use:[
+                  'style-loader',
+                    'css-loader',
+                    'autoprefixer-loader'
+                ]
+
             },
             {
                 test: /\.less$/,
-                use:ExtractTextPlugin.extract({
-                    fallback:'style-loader',
+
                     use:[
+                      'style-loader',
                         'css-loader',
                         'less-loader'
                     ]
-                })
+
             },
             {
                 test: /\.scss$/,
-                use:ExtractTextPlugin.extract({
-                    fallback:'style-loader',
-                    use:[
-                        'css-loader',
-                        'sass-loader'
-                    ]
-                })
+
+                use:[
+                  'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+
             },
             {
                 test: /\.(woff|svg|eot|ttf)\??.*$/,
