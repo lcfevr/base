@@ -2,7 +2,6 @@
  * 公共配置
  */
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var path = require('path');
 
@@ -15,8 +14,8 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        css: 'vue-style-loader!css-loader',
-                        less: 'vue-style-loader!css-loader!less-loader'
+                        css: 'vue-style-loader!css-loader!autoprefixer-loader?browsers=last 5 versions',
+                        less: 'vue-style-loader!css-loader!autoprefixer-loader?browsers=last 5 versions!less-loader'
                     },
                     postLoaders: {
                         html: 'babel-loader'
@@ -78,7 +77,7 @@ module.exports = {
         extensions: ['.js', '.vue'],
         alias: {
             'asset':path.join(__dirname, 'src', 'asset'),
-            'vue': 'vue/dist/vue.esm.js',
+            'vue$': 'vue/dist/vue.esm.js',
         }
     },
 };

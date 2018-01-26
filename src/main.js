@@ -8,11 +8,11 @@ import App from './components/app.vue';
 
 import Config from './config/config'
 import Axios from 'axios'
-import Router from './project/bases/page/index/router'
+
 
 
 Vue.use(VueRouter);
-
+console.log(Vue)
 
 // 开启debug模式
 
@@ -22,20 +22,28 @@ Vue.prototype.$Config = Config;
 Vue.prototype.$http = Axios;
 
 
-console.log(globalConfigs)
+
 
 // 路由配置
 
 
-let req = require.context('./project/' + process.env.PROJECT, true, /.*router\.js$/);
 
 
-let routes = [];
-req.keys().forEach(p => {
-  let r = req(p);
-  r.default.forEach(k => routes.push(k));
-});
 
+let routes = []
+
+function importAll (r) {
+  r.keys().forEach(key => {
+    routes.push(...r(key).default)
+  });
+
+}
+
+importAll(require.context('./project/', true, /.*router\.js$/));
+
+
+
+console.log(routes)
 
 let router = new VueRouter({
     history: process.env.NODE_ENV !== 'production',

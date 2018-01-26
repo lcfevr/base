@@ -1,5 +1,5 @@
 
-# Vue2.x+Vue-router2.x+webpack2.x基础构架
+# Vue2.x+Vue-router2.x+webpack2.x脚手架
 
 ## 一、文件目录
 
@@ -85,22 +85,19 @@
 npm install
 ```
 
-2.安装完毕之后，初次运行执行以下命令,生成example目录，该目录下文件为开发环境运行所需
+
+2.执行dll公共库打包命令，开启服务,默认端口8080，通过[http://127.0.0.1:8080](http://127.0.0.1:8080/)访问
 
 ```
-npm run init
-```
+npm run build:dll && npm run dev
 
-3.开启服务,默认端口8080，通过[http://127.0.0.1:8080](http://127.0.0.1:8080/)访问
-
-```
-npm run dev
 
 //默认端口8080，可通过配置参数port来更改端口   npm run dev -- --port 8081
 ```
 
-4.生产环境打包
+3.生产环境打包
 > 可通过给命令行添加project参数来启动project目录下的相对应的项目，project参数值默认为'base'
+
 
 ```
 npm run build
@@ -109,17 +106,22 @@ npm run build
 npm run build -- --project base  //启动base项目
 ```
 
+
 ### 说明
 
 1.已通过webpack做代码切割，按需加载，若无需代码切割，请删除dev && prod 环境下的chunk配置
 
-2.已处理 *.vue 文件内的 <style> 提取，若需要按需加载，请移除webpack.base.config.js下的ExtractTextPlugin配置，且移除dev && prod 中 ExtractTextPlugin 相关plugin配置
+2.未处理 *.vue 文件内的 <style> 提取，若不需要按需加载，请添加webpack.base.config.js下的ExtractTextPlugin配置，且添加dev && prod 中 ExtractTextPlugin 相关plugin配置
 
 3.process.env.NODE_ENV 变量在dev 跟 prod环境下的值 分别为 'development' 跟 'production'，可根据需要自行配置
 
-4.prod环境下打包完成会生成一个全局的config.js文件，该文件下存储了window.globalConfigs全局变量，方便docker容器配置
+4.prod环境下打包完成会生成一个全局的config.js文件，该文件下存储了window.globalConfigs全局变量，方便docker容器配置，如不需要docker配置，请自行修改project下各项目的index.js里的生产环境域名
 
 5.gitignore已默认将dist 跟 example 目录下的文件忽略
 
 6.通过配置project下的项目结构，可灵活启动项目，视图与业务分离，开发者可抽取业务公用代码，通过extends来灵活配置各个相似场景下的业务代码
+
+7.build之后会同时在根目录下生成一个存放生产环境代码压缩包的文件夹
+
+
 

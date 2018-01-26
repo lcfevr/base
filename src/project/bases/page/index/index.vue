@@ -13,11 +13,12 @@
         extends:INDEX
     }
 </script>
-<style>
+<style lang="less">
   @import '../../../../styles/index.less';
   .test{
     background: url("../../../../asset/img/a.jpg");
     width: 200px;
     height: 200px;
+    transform: rotate(90deg);
   }
 </style>

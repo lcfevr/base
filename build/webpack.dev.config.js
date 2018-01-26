@@ -14,9 +14,10 @@ var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 process.env.NODE_ENV = '"development"';
 module.exports = merge(webpackBaseConfig, {
+
+
     entry: {
         main: './src/main',
-        vendors: ['vue', 'vue-router']
     },
     output: {
         path:path.join(__dirname, '../example'),
@@ -26,7 +27,7 @@ module.exports = merge(webpackBaseConfig, {
     },
     resolve: {
         alias: {
-            vue: 'vue/dist/vue.js'
+            'vue$': 'vue/dist/vue.runtime.esm.js'
         },
     },
     plugins: [
@@ -36,8 +37,16 @@ module.exports = merge(webpackBaseConfig, {
             'process.env.PROJECT' : require('./config').PROJECT,
             'globalConfigs':require('./config')
         }),
+      new webpack.DllReferencePlugin({
+        // name参数和dllplugin里面name一致，可以不传
+        name: 'vendor',
+        // dllplugin 打包输出的manifest.json
+        manifest: require('../vendor.manifest.json'),
+        // 和dllplugin里面的context一致
+        context: path.join(__dirname, '..')
+      }),
         new ExtractTextPlugin({ filename: 'css/[name].css', allChunks: true }),
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'js/vendor.bundle.js' }),
+        // new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'js/vendor.bundle.js' }),
         new HtmlWebpackPlugin({
             inject: false,
             filename: '../example/index.html',

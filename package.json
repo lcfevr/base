@@ -1,12 +1,13 @@
 {
   "name": "base",
   "version": "1.0.0",
-  "description": "Vue基础架构",
+  "description": "Vue2.0脚手架",
   "main": "main.js",
   "scripts": {
-    "init": "webpack --progress --config build/webpack.dev.config.js",
+
     "dev": "webpack-dev-server  --inline --hot --compress --history-api-fallback  --config build/webpack.dev.config.js",
-    "build": "webpack -p --progress --hide-modules --config  build/webpack.prod.config.js  &&  node build/zip.js"
+    "build": "webpack --progress --hide-modules --config  build/webpack.prod.config.js  && npm run build:dll &&  node build/zip.js",
+    "build:dll": "webpack --config build/webpack.dll.config.js --progress"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "babel-plugin-transform-runtime": "^6.12.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-runtime": "^6.11.6",
+    "copy-webpack-plugin": "^4.3.0",
     "cross-env": "^3.1.4",
     "css-loader": "^0.28.4",
     "eslint": "^3.12.2",
@@ -60,7 +62,7 @@
     "vue-template-compiler": "^2.2.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1",
-    "webpack-merge": "^3.0.0",
+    "webpack-merge": "^2.6.1",
     "zip-local": "^0.3.4"
   },
   "author": "lcfevr",
