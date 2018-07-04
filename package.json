@@ -4,9 +4,8 @@
   "description": "Vue2.0脚手架",
   "main": "main.js",
   "scripts": {
-
     "dev": "webpack-dev-server  --inline --hot --compress --history-api-fallback  --config build/webpack.dev.config.js",
-    "build": "webpack --progress --hide-modules --config  build/webpack.prod.config.js  && npm run build:dll &&  node build/zip.js",
+    "build": "npm run build:dll && webpack --progress --hide-modules --config  build/webpack.prod.config.js  &&  node build/zip.js",
     "build:dll": "webpack --config build/webpack.dll.config.js --progress"
   },
   "repository": {
@@ -20,6 +19,7 @@
     "axios": "^0.16.1",
     "core-js": "^2.4.1",
     "deepmerge": "^1.3.1",
+    "html2canvas": "^1.0.0-alpha.12",
     "vue": "^2.3.2",
     "vuex": "^2.3.1",
     "yargs": "^8.0.2"
