@@ -72,6 +72,7 @@
 
               var filename = '家里有矿啊.' + type;
               saveFile(imgData, filename);
+              console.log('deploy')
             })
           }
 
